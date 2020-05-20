@@ -85,15 +85,9 @@
 
             btnDelete.onclick = function () {
                 console.log("Tombol delete di klik");
-<<<<<<< Updated upstream
                 deleteById(idParam)
                     .then(function (success) {
                         alert(success);
-=======
-                deleteStanding(idParam)
-                    .then(function (res) {
-                        alert(res);
->>>>>>> Stashed changes
                         window.location.assign("./index.html");
                     })
                     .catch(function (err) {
