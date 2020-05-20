@@ -1,14 +1,16 @@
 const CACHE_NAME = "premiere-league-v1";
 const urlsToCache = [
     "/",
-    "/index.html",
     "/nav.html",
     "/manifest.json",
+    "/index.html",
+    "/icon.png",
     "/pages/home.html",
     "/pages/saved.html",
+    "/js/api.js",
+    "/js/nav.js",
     "/js/materialize.min.js",
-    "/css/materialize.min.css",
-    "/js/nav.js"
+    "/css/materialize.min.css"
 ];
 
 self.addEventListener("install", function (event) {
