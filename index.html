@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premiere League</title>
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3367D6">
+</head>
+
+<body>
+
+    <header>
+        <nav class="indigo">
+            <div class="nav-wrapper container">
+                <a href="#!" class="brand-logo">Premiere League</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="topnav right hide-on-med-and-down"></ul>
+                <ul class="sidenav" id="mobile-demo"></ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div id="body-content" class="container"></div>
+    </main>
+
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script src="js/nav.js"></script>
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", function () {
+                navigator.serviceWorker.register("/service-worker.js")
+                    .then(function () {
+                        console.log("ServiceWorker: Registrasi berhasil");
+                    })
+                    .catch(function () {
+                        console.log("ServiceWorker: Registrasi gagal");
+                    })
+            });
+        } else {
+            console.log("ServiceWorker: Browser tidak mendukung");
+        }
+    </script>
+</body>
+
+</html>
