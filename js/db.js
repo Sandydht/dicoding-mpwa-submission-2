@@ -51,11 +51,7 @@ function getById(id) {
     })
 }
 
-<<<<<<< Updated upstream
 function deleteById(id) {
-=======
-function deleteStanding(id) {
->>>>>>> Stashed changes
     return new Promise(function (resolve, reject) {
         dbPromised
             .then(function (db) {
@@ -65,11 +61,7 @@ function deleteStanding(id) {
                 return tx.complete;
             })
             .then(function () {
-<<<<<<< Updated upstream
                 resolve("Data berhasil dihapus");
-=======
-                resolve("Data berhasil dihapus")
->>>>>>> Stashed changes
             })
             .catch(function () {
                 reject("Data gagal dihapus");
