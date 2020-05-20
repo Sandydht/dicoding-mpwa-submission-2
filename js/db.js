@@ -5,7 +5,7 @@ const dbPromised = idb.open("premiere-league", 1, function (upgradeDb) {
     standingsObjectStore.createIndex("name", "name", { unique: false });
 });
 
-function save(standing) {
+function saveStanding(standing) {
     dbPromised
         .then(function (db) {
             const tx = db.transaction("standings", "readwrite");
@@ -43,7 +43,7 @@ function getById(id) {
             .then(function (db) {
                 const tx = db.transaction("standings", "readonly");
                 const store = tx.objectStore("standings");
-                return store.get(id);
+                return store.get(parseInt(id));
             })
             .then(function (standing) {
                 resolve(standing);
@@ -51,7 +51,11 @@ function getById(id) {
     })
 }
 
+<<<<<<< Updated upstream
 function deleteById(id) {
+=======
+function deleteStanding(id) {
+>>>>>>> Stashed changes
     return new Promise(function (resolve, reject) {
         dbPromised
             .then(function (db) {
@@ -61,7 +65,11 @@ function deleteById(id) {
                 return tx.complete;
             })
             .then(function () {
+<<<<<<< Updated upstream
                 resolve("Data berhasil dihapus");
+=======
+                resolve("Data berhasil dihapus")
+>>>>>>> Stashed changes
             })
             .catch(function () {
                 reject("Data gagal dihapus");

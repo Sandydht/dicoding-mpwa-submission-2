@@ -348,7 +348,7 @@ function getSavedStandingById() {
     const urlParams = new URLSearchParams(window.location.search);
     const idParam = urlParams.get("id");
 
-    getById(parseInt(idParam))
+    getById(idParam)
         .then(function (data) {
             console.log(data);
             let standingHTML = "";
