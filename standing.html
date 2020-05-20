@@ -62,10 +62,11 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             const urlParams = new URLSearchParams(window.location.search);
+            const idParam = urlParams.get("id");
             const isFromSaved = urlParams.get("saved");
             const btnSave = document.getElementById("save");
             const btnDelete = document.getElementById("delete");
-            
+
             if (isFromSaved) {
                 console.log("Get data by id");
                 btnSave.style.display = "none";
@@ -76,10 +77,15 @@
             }
 
             btnSave.onclick = function () {
-                console.log("Tombol di klik");
+                console.log("Tombol save di klik");
                 getStandingById().then(function (data) {
                     save(data);
                 })
+            }
+
+            btnDelete.onclick = function () {
+                console.log("Tombol delete di klik");
+                deleteById(parseInt(idParam));
             }
         });
     </script>

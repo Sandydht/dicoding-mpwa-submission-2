@@ -50,3 +50,22 @@ function getById(id) {
             })
     })
 }
+
+function deleteById(id) {
+    dbPromised
+        .then(function (db) {
+            const tx = db.transaction("standings", "readwrite");
+            const store = tx.objectStore("standings");
+            store.delete(id);
+
+            return tx.complete;
+        })
+        .then(function () {
+            console.log("Data berhasil dihapus");
+            alert("Data berhasil dihapus");
+        })
+        .catch(function () {
+            console.log("Data gagal dihapus");
+            alert("Data gagal dihapus");
+        })
+} 
