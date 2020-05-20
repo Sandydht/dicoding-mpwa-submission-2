@@ -133,166 +133,290 @@ function getStandings() {
 }
 
 function getTeamById() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const idParam = urlParams.get("id");
+    return new Promise(function (resolve, reject) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const idParam = urlParams.get("id");
 
-    if ("caches" in window) {
-        caches.match(base_url + "teams/" + idParam)
-            .then(function (response) {
-                if (response) {
-                    response.json()
-                        .then(function (data) {
-                            let detailHTML = "";
-                            detailHTML += `
-                            <div class="row">
-                                <div class="col s12">
-                                    <div class="card">
-                                        <div class="card-image">
-                                            <img src=${data.crestUrl} alt="Logo" class="responsive-img circular" style="max-height: 200px">
-                                        </div>
-                                        <div class="card-content">
-                                            <span class="card-title">${data.name}</span>
-                                            <table class="highlight">
-                                                <tr>
-                                                    <th>Official Website</th>
-                                                    <td><a href=${data.website} target="blank">${data.website}</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Address</th>
-                                                    <td>${data.address}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Phone</th>
-                                                    <td>${data.phone}</td>
-                                                </tr>
-                                                <tr>
-                                                    <th>Email</th>
-                                                    <td>${data.email}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col s12">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <span class="card-title">Squad</span>
-                                            <div class="row">
-                                                    <table class="highlight responsive-table centered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>Name</th>
-                                                                <th>Nationality</th>
-                                                                <th>Position</th>
-                                                                <th>Role</th>
-                                                                <th>Shirt Number</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>`;
-
-                            data.squad.forEach(function (sqd) {
+        if ("caches" in window) {
+            caches.match(base_url + "teams/" + idParam)
+                .then(function (response) {
+                    if (response) {
+                        response.json()
+                            .then(function (data) {
+                                let detailHTML = "";
                                 detailHTML += `
-                                <tr>
-                                    <td>${sqd.name}</td>
-                                    <td>${sqd.nationality}</td>
-                                    <td>${sqd.position}</td>
-                                    <td>${sqd.role}</td>
-                                    <td>${sqd.shirtNumber}</td>
-                                </tr>`;
-                            });
-
-                            detailHTML += `          
-                                                    </tbody>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <div class="card">
+                                            <div class="card-image">
+                                                <img src=${data.crestUrl} alt="Logo" class="responsive-img circular" style="max-height: 200px">
+                                            </div>
+                                            <div class="card-content">
+                                                <span class="card-title">${data.name}</span>
+                                                <table class="highlight">
+                                                    <tr>
+                                                        <th>Official Website</th>
+                                                        <td><a href=${data.website} target="blank">${data.website}</a></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Address</th>
+                                                        <td>${data.address}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Phone</th>
+                                                        <td>${data.phone}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Email</th>
+                                                        <td>${data.email}</td>
+                                                    </tr>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>`;
+                                    <div class="col s12">
+                                        <div class="card">
+                                            <div class="card-content">
+                                                <span class="card-title">Squad</span>
+                                                <div class="row">
+                                                        <table class="highlight responsive-table centered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Name</th>
+                                                                    <th>Nationality</th>
+                                                                    <th>Position</th>
+                                                                    <th>Role</th>
+                                                                    <th>Shirt Number</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>`;
 
-                            document.getElementById("body-content").innerHTML = detailHTML;
-                        })
-                }
-            })
-    }
+                                data.squad.forEach(function (sqd) {
+                                    detailHTML += `
+                                    <tr>
+                                        <td>${sqd.name}</td>
+                                        <td>${sqd.nationality}</td>
+                                        <td>${sqd.position}</td>
+                                        <td>${sqd.role}</td>
+                                        <td>${sqd.shirtNumber}</td>
+                                    </tr>`;
+                                });
 
-    fetch(base_url + "teams/" + idParam, {
-        headers: {
-            "X-Auth-Token": auth_token
+                                detailHTML += `          
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>`;
+
+                                document.getElementById("body-content").innerHTML = detailHTML;
+                                resolve(data);
+                            })
+                    }
+                })
         }
-    })
-        .then(status)
-        .then(json)
-        .then(function (data) {
-            let detailHTML = "";
-            detailHTML += `
-            <div class="row">
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-image">
-                            <img src=${data.crestUrl} alt="Logo" class="responsive-img circular" style="max-height: 200px">
-                        </div>
-                        <div class="card-content">
-                            <span class="card-title">${data.name}</span>
-                            <table class="highlight">
-                                <tr>
-                                    <th>Official Website</th>
-                                    <td><a href=${data.website} target="blank">${data.website}</a></td>
-                                </tr>
-                                <tr>
-                                    <th>Address</th>
-                                    <td>${data.address}</td>
-                                </tr>
-                                <tr>
-                                    <th>Phone</th>
-                                    <td>${data.phone}</td>
-                                </tr>
-                                <tr>
-                                    <th>Email</th>
-                                    <td>${data.email}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                <div class="col s12">
-                    <div class="card">
-                        <div class="card-content">
-                            <span class="card-title">Squad</span>
-                            <div class="row">
-                                    <table class="highlight responsive-table centered">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Nationality</th>
-                                                <th>Position</th>
-                                                <th>Role</th>
-                                                <th>Shirt Number</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>`;
 
-            data.squad.forEach(function (sqd) {
+        fetch(base_url + "teams/" + idParam, {
+            headers: {
+                "X-Auth-Token": auth_token
+            }
+        })
+            .then(status)
+            .then(json)
+            .then(function (data) {
+                let detailHTML = "";
                 detailHTML += `
-                <tr>
-                    <td>${sqd.name}</td>
-                    <td>${sqd.nationality}</td>
-                    <td>${sqd.position}</td>
-                    <td>${sqd.role}</td>
-                    <td>${sqd.shirtNumber}</td>
-                </tr>`;
-            });
-
-            detailHTML += `          
-                                        </tbody>
-                                    </table>
-                                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src=${data.crestUrl} alt="Logo" class="responsive-img circular" style="max-height: 200px">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title">${data.name}</span>
+                                <table class="highlight">
+                                    <tr>
+                                        <th>Official Website</th>
+                                        <td><a href=${data.website} target="blank">${data.website}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>${data.address}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td>${data.phone}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>${data.email}</td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
+                    <div class="col s12">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Squad</span>
+                                <div class="row">
+                                        <table class="highlight responsive-table centered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Nationality</th>
+                                                    <th>Position</th>
+                                                    <th>Role</th>
+                                                    <th>Shirt Number</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>`;
+
+                data.squad.forEach(function (sqd) {
+                    detailHTML += `
+                    <tr>
+                        <td>${sqd.name}</td>
+                        <td>${sqd.nationality}</td>
+                        <td>${sqd.position}</td>
+                        <td>${sqd.role}</td>
+                        <td>${sqd.shirtNumber}</td>
+                    </tr>`;
+                });
+
+                detailHTML += `          
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+
+                document.getElementById("body-content").innerHTML = detailHTML;
+                resolve(data);
+            })
+            .catch(error)
+    })
+}
+
+function getSavedTeam() {
+    getAll()
+        .then(function (team) {
+            let teamsHTML = "";
+
+            team.forEach(function (data) {
+                teamsHTML += `
+                <div class="card">
+                    <div class="card-image">
+                        <img src=${data.crestUrl} alt="Logo" class="responsive-img circular" style="max-height: 200px">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title">${data.name}</span>
+                        <table class="highlight">
+                            <tr>
+                                <th>Official Website</th>
+                                <td><a href=${data.website} target="blank">${data.website}</a></td>
+                            </tr>
+                            <tr>
+                                <th>Address</th>
+                                <td>${data.address}</td>
+                            </tr>
+                            <tr>
+                                <th>Phone</th>
+                                <td>${data.phone}</td>
+                            </tr>
+                            <tr>
+                                <th>Email</th>
+                                <td>${data.email}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card-action">
+                        <a href="./detail.html?id=${data.id}&saved=true">See detail</a>
+                    </div>
                 </div>`;
+            });
+
+            document.getElementById("teams").innerHTML = teamsHTML;
+        })
+}
+
+function getSavedTeamById() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const idParam = urlParams.get("id");
+
+    getById(idParam)
+        .then(function (data) {
+            let detailHTML = "";
+            detailHTML += `
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src=${data.crestUrl} alt="Logo" class="responsive-img circular" style="max-height: 200px">
+                            </div>
+                            <div class="card-content">
+                                <span class="card-title">${data.name}</span>
+                                <table class="highlight">
+                                    <tr>
+                                        <th>Official Website</th>
+                                        <td><a href=${data.website} target="blank">${data.website}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>${data.address}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Phone</th>
+                                        <td>${data.phone}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>${data.email}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12">
+                        <div class="card">
+                            <div class="card-content">
+                                <span class="card-title">Squad</span>
+                                <div class="row">
+                                        <table class="highlight responsive-table centered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Nationality</th>
+                                                    <th>Position</th>
+                                                    <th>Role</th>
+                                                    <th>Shirt Number</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>`;
+
+            data.squad.forEach(function (sqd) {
+                detailHTML += `
+                    <tr>
+                        <td>${sqd.name}</td>
+                        <td>${sqd.nationality}</td>
+                        <td>${sqd.position}</td>
+                        <td>${sqd.role}</td>
+                        <td>${sqd.shirtNumber}</td>
+                    </tr>`;
+            });
+
+            detailHTML += `          
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
 
             document.getElementById("body-content").innerHTML = detailHTML;
         })
-        .catch(error)
 }

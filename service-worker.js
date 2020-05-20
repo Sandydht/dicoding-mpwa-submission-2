@@ -10,6 +10,8 @@ const urlsToCache = [
     "/pages/saved.html",
     "/js/api.js",
     "/js/nav.js",
+    "/js/idb.js",
+    "/js/db.js",
     "/js/materialize.min.js",
     "/css/materialize.min.css"
 ];

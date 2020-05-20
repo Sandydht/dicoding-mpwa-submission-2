@@ -28,10 +28,17 @@
 
     <main>
         <div id="body-content" class="container"></div>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large indigo" id="save">
+                <i class="large material-icons">save</i>
+            </a>
+        </div>
     </main>
 
     <script type="text/javascript" src="js/materialize.min.js"></script>
     <script src="js/api.js"></script>
+    <script src="js/idb.js"></script>
+    <script src="js/db.js"></script>
     <script>
         if ("serviceWorker" in navigator) {
             window.addEventListener("load", function () {
@@ -48,7 +55,23 @@
         }
 
         document.addEventListener("DOMContentLoaded", function () {
-            getTeamById();
+            const urlParams = new URLSearchParams(window.location.search);
+            const isFromSaved = urlParams.get("saved");
+            const btnSave = document.getElementById("save");
+
+            if (isFromSaved) {
+                btnSave.style.display = "none";
+                getSavedTeamById();
+            } else {
+                getTeamById()
+            }
+
+            btnSave.onclick = function () {
+                console.log("Tombol FAB di klik");
+                getTeamById().then(function (team) {
+                    save(team);
+                })
+            }
         });
     </script>
 </body>
