@@ -1,16 +1,16 @@
 const dbPromised = idb.open("premiere-league", 1, function (upgradeDb) {
-    const teamObjectStore = upgradeDb.createObjectStore("teams", {
+    const standingsObjectStore = upgradeDb.createObjectStore("standings", {
         keyPath: "id"
     });
-    teamObjectStore.createIndex("name", "name", { unique: false });
+    standingsObjectStore.createIndex("name", "name", { unique: false });
 });
 
-function save(team) {
+function save(standing) {
     dbPromised
         .then(function (db) {
-            const tx = db.transaction("teams", "readwrite");
-            const store = tx.objectStore("teams");
-            store.add(team);
+            const tx = db.transaction("standings", "readwrite");
+            const store = tx.objectStore("standings");
+            store.add(standing);
             return tx.complete;
         })
         .then(function () {
@@ -27,30 +27,26 @@ function getAll() {
     return new Promise(function (resolve, reject) {
         dbPromised
             .then(function (db) {
-                const tx = db.transaction("teams", "readonly");
-                const store = tx.objectStore("teams");
-
+                const tx = db.transaction("standings", "readonly");
+                const store = tx.objectStore("standings");
                 return store.getAll();
             })
-            .then(function (teams) {
-                resolve(teams);
+            .then(function (standings) {
+                resolve(standings);
             })
-    })
+    });
 }
 
 function getById(id) {
     return new Promise(function (resolve, reject) {
         dbPromised
             .then(function (db) {
-                const tx = db.transaction("teams", "readonly");
-                const store = tx.objectStore("teams");
-                console.log(db);
-                
+                const tx = db.transaction("standings", "readonly");
+                const store = tx.objectStore("standings");
                 return store.get(id);
             })
-            .then(function (teams) {
-                console.log(teams.name);
-                resolve(teams);
+            .then(function (standing) {
+                resolve(standing);
             })
     })
 }

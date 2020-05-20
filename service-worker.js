@@ -5,13 +5,11 @@ const urlsToCache = [
     "/manifest.json",
     "/index.html",
     "/icon.png",
-    "/detail.html",
+    "/standing.html",
     "/pages/home.html",
     "/pages/saved.html",
     "/js/api.js",
     "/js/nav.js",
-    "/js/idb.js",
-    "/js/db.js",
     "/js/materialize.min.js",
     "/css/materialize.min.css"
 ];

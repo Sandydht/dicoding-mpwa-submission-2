@@ -33,6 +33,12 @@
                 <i class="large material-icons">save</i>
             </a>
         </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large indigo" id="delete">
+                <i class="large material-icons">delete</i>
+            </a>
+        </div>
     </main>
 
     <script type="text/javascript" src="js/materialize.min.js"></script>
@@ -58,18 +64,21 @@
             const urlParams = new URLSearchParams(window.location.search);
             const isFromSaved = urlParams.get("saved");
             const btnSave = document.getElementById("save");
-
+            const btnDelete = document.getElementById("delete");
+            
             if (isFromSaved) {
+                console.log("Get data by id");
                 btnSave.style.display = "none";
                 getSavedStandingById();
             } else {
-                getStandingById()
+                getStandingById();
+                btnDelete.style.display = "none";
             }
 
             btnSave.onclick = function () {
-                console.log("Tombol FAB di klik");
-                getStandingById().then(function (team) {
-                    save(team);
+                console.log("Tombol di klik");
+                getStandingById().then(function (data) {
+                    save(data);
                 })
             }
         });
