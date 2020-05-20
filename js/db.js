@@ -63,6 +63,7 @@ function deleteById(id) {
         .then(function () {
             console.log("Data berhasil dihapus");
             alert("Data berhasil dihapus");
+            window.location.assign("./index.html");
         })
         .catch(function () {
             console.log("Data gagal dihapus");
