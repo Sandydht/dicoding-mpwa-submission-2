@@ -132,7 +132,7 @@ function getStandings() {
         .catch(error)
 }
 
-function getTeamById() {
+function getStandingById() {
     return new Promise(function (resolve, reject) {
         const urlParams = new URLSearchParams(window.location.search);
         const idParam = urlParams.get("id");
@@ -143,8 +143,8 @@ function getTeamById() {
                     if (response) {
                         response.json()
                             .then(function (data) {
-                                let detailHTML = "";
-                                detailHTML += `
+                                let standingHTML = "";
+                                standingHTML += `
                                 <div class="row">
                                     <div class="col s12">
                                         <div class="card">
@@ -192,7 +192,7 @@ function getTeamById() {
                                                             <tbody>`;
 
                                 data.squad.forEach(function (sqd) {
-                                    detailHTML += `
+                                    standingHTML += `
                                     <tr>
                                         <td>${sqd.name}</td>
                                         <td>${sqd.nationality}</td>
@@ -202,7 +202,7 @@ function getTeamById() {
                                     </tr>`;
                                 });
 
-                                detailHTML += `          
+                                standingHTML += `          
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -211,7 +211,7 @@ function getTeamById() {
                                     </div>
                                 </div>`;
 
-                                document.getElementById("body-content").innerHTML = detailHTML;
+                                document.getElementById("body-content").innerHTML = standingHTML;
                                 resolve(data);
                             })
                     }
@@ -226,8 +226,8 @@ function getTeamById() {
             .then(status)
             .then(json)
             .then(function (data) {
-                let detailHTML = "";
-                detailHTML += `
+                let standingHTML = "";
+                standingHTML += `
                 <div class="row">
                     <div class="col s12">
                         <div class="card">
@@ -275,7 +275,7 @@ function getTeamById() {
                                             <tbody>`;
 
                 data.squad.forEach(function (sqd) {
-                    detailHTML += `
+                    standingHTML += `
                     <tr>
                         <td>${sqd.name}</td>
                         <td>${sqd.nationality}</td>
@@ -285,7 +285,7 @@ function getTeamById() {
                     </tr>`;
                 });
 
-                detailHTML += `          
+                standingHTML += `          
                                             </tbody>
                                         </table>
                                     </div>
@@ -294,20 +294,20 @@ function getTeamById() {
                         </div>
                     </div>`;
 
-                document.getElementById("body-content").innerHTML = detailHTML;
+                document.getElementById("body-content").innerHTML = standingHTML;
                 resolve(data);
             })
             .catch(error)
     })
 }
 
-function getSavedTeam() {
+function getSavedStandings() {
     getAll()
         .then(function (team) {
-            let teamsHTML = "";
+            let standingsHTML = "";
 
             team.forEach(function (data) {
-                teamsHTML += `
+                standingsHTML += `
                 <div class="card">
                     <div class="card-image">
                         <img src=${data.crestUrl} alt="Logo" class="responsive-img circular" style="max-height: 200px">
@@ -339,11 +339,11 @@ function getSavedTeam() {
                 </div>`;
             });
 
-            document.getElementById("teams").innerHTML = teamsHTML;
+            document.getElementById("standings").innerHTML = standingsHTML;
         })
 }
 
-function getSavedTeamById() {
+function getSavedStandingById() {
     const urlParams = new URLSearchParams(window.location.search);
     const idParam = urlParams.get("id");
 

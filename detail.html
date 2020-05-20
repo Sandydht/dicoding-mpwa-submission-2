@@ -61,14 +61,14 @@
 
             if (isFromSaved) {
                 btnSave.style.display = "none";
-                getSavedTeamById();
+                getSavedStandingById();
             } else {
-                getTeamById()
+                getStandingById()
             }
 
             btnSave.onclick = function () {
                 console.log("Tombol FAB di klik");
-                getTeamById().then(function (team) {
+                getStandingById().then(function (team) {
                     save(team);
                 })
             }

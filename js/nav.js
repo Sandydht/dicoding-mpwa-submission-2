@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (page === "home") {
                     getStandings();
                 } else if (page === "saved") {
-                    getSavedTeam();
+                    getSavedStandings();
                 }
 
                 if (this.status == 200) {
