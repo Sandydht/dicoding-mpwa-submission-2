@@ -85,7 +85,14 @@
 
             btnDelete.onclick = function () {
                 console.log("Tombol delete di klik");
-                deleteById(parseInt(idParam));
+                deleteById(idParam)
+                    .then(function (success) {
+                        alert(success);
+                        window.location.assign("./index.html");
+                    })
+                    .catch(function (err) {
+                        alert(err);
+                    })
             }
         });
     </script>
