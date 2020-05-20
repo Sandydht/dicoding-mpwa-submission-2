@@ -33,6 +33,11 @@ document.addEventListener("DOMContentLoaded", function () {
         xhttp.onreadystatechange = function () {
             if (this.readyState == 4) {
                 let content = document.getElementById("body-content");
+
+                if (page === "home") {
+                    getStandings();
+                }
+
                 if (this.status == 200) {
                     content.innerHTML = xhttp.responseText;
                 } else if (this.status == 404) {

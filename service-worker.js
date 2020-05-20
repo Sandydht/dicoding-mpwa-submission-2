@@ -5,6 +5,7 @@ const urlsToCache = [
     "/manifest.json",
     "/index.html",
     "/icon.png",
+    "/detail.html",
     "/pages/home.html",
     "/pages/saved.html",
     "/js/api.js",
@@ -26,18 +27,26 @@ self.addEventListener("install", function (event) {
 });
 
 self.addEventListener("fetch", function (event) {
-    event.respondWith(
-        caches.match(event.request, { cacheName: CACHE_NAME })
-            .then(function (response) {
-                if (response) {
-                    console.log("ServiceWorker: Memuat aset dari cache");
-                    return response;
-                } else {
-                    console.log("ServiceWorker: Memuat aset dari server");
-                    return fetch(event.request);
-                }
-            })
-    );
+    const base_url = "";
+    if (event.request.url.indexOf(base_url) > -1) {
+        event.respondWith(
+            caches.open(CACHE_NAME)
+                .then(function (cache) {
+                    return fetch(event.request)
+                        .then(function (response) {
+                            cache.put(event.request.url, response.clone());
+                            return response;
+                        })
+                })
+        );
+    } else {
+        event.respondWith(
+            caches.match(event.request)
+                .then(function (response) {
+                    return response || fetch(event.request);
+                })
+        );
+    }
 });
 
 self.addEventListener("activate", function (event) {
