@@ -12,10 +12,10 @@ webPush.setVapidDetails(
     vapidKeys.privateKey
 )
 const pushSubscription = {
-    "endpoint": "https://fcm.googleapis.com/fcm/send/dxvV3K5PbjI:APA91bGHdUq3x7syr0z3O7UUvU2kIXF6FH_jQ7Fya1BG2fhBRDsX4vmXkX3JYsHtqr_JBu2R4zYYcy2SKkGDQYKMGe2qGfmGrfJjKml8WDxpa4hZiiz3qfpPtQUXtf4xENzfcN8xIOUs",
+    "endpoint": "https://fcm.googleapis.com/fcm/send/dV9VbQ0osZQ:APA91bHlM7Br7QXi1jC6lOyqweBfiA57vUqlRI4GcE-H1pNQhAh7rIT2LMWkdJokJoNxf7UnCiFJnD2ulcVG-v3OuopaH1MtMXjKqJyKl1midYJeJ9eZrH7LlY2GhV5gRrr5sVv_PgS1",
     "keys": {
-        "p256dh": "BLYCuiAcVPMwczf5Znq6o18PNS1UC01djfVzliJ7OLHKhdMmycE9JFOTgmo0NUrNdobEKZy72OG7FRi1nRWj9jw=",
-        "auth": "Jq2ZjxQZjqSGXPXhur8ncA=="
+        "p256dh": "BGMtPOdbyomiMSE8SR8Zvkn8nLqjzX51sLTq7XsCwv8XqHNfONN4kBHoTVPrpmNBT6FQwJ8/JPncsSA/QW2EMqk=",
+        "auth": "6lovHyXm75XQCUacpU0WTQ=="
     }
 };
 const payload = 'Selamat! Aplikasi Anda sudah dapat menerima push notifikasi!';
